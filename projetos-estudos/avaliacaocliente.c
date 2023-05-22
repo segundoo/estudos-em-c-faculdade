@@ -8,7 +8,8 @@ int main()
     setlocale (LC_ALL, "Portuguese");
 
     //variáveis
-    int qtdRuim, qtdRegular, qtdBom, qtdOtimo, opcao;
+    char opcao;
+    int qtdRuim, qtdRegular, qtdBom, qtdOtimo;
     qtdRuim = 0;
     qtdRegular = 0;
     qtdBom = 0;
@@ -16,36 +17,41 @@ int main()
 
     do 
     {   //menu de opções
+        printf ("------------------------------------------------\n");
         printf ("Avalie o nosso atendimento. Digite uma opção: \n");
+        printf("________________________________________________\n\n");
         printf ("1 - RUIM\n");
         printf ("2 - REGULAR\n");
         printf ("3 - BOM\n");
         printf ("4 - ÓTIMO\n");
-        printf ("5 - SAIR\n");
-        scanf ("%d", &opcao);
+        printf ("5 - SAIR\n\n");
+        printf("------------------------------------------------\n\n");
+        scanf ("%c", &opcao);
 
         switch (opcao)
         {
-        case 1: 
-            qtdRuim = qtdRuim + 1;
+        case '1': 
+            qtdRuim++;
             break;
-        case 2: 
-            qtdRegular = qtdRegular + 1;
+        case '2': 
+            qtdRegular++;
             break;
-        case 3: 
-            qtdBom = qtdBom + 1;
+        case '3': 
+            qtdBom++;
             break;
-        case 4: 
-            qtdOtimo = qtdOtimo + 1;
+        case '4': 
+            qtdOtimo++;
             break;
-        case 5:
+        case '5':
+        printf("Saindo.....\n");
             break;
         default: 
-            printf ("Opção invalida");
+            printf ("Opção invalida!");
             break;
         }
+        printf("\n");
 
-    } while (opcao < 5);
+    } while (opcao != '5');
 
     printf ("Quantidade de votos no ruim: %i\n", qtdRuim);
     printf ("Quantidade de votos no regular: %i\n", qtdRuim);
