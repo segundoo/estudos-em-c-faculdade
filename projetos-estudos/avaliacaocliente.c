@@ -52,7 +52,8 @@ int main()
         printf("\n");
 
     } while (opcao != '5');
-
+    
+    //resultado
     printf ("Quantidade de votos no ruim: %i\n", qtdRuim);
     printf ("Quantidade de votos no regular: %i\n", qtdRuim);
     printf ("Quantidade de votos no bom: %i\n", qtdRuim);
