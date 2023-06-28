@@ -12,7 +12,6 @@ int numeroRandomicoNaoRepetido(int sorteioMega[], int index) {
         for (int i = 0; i < index; i++) {
             if (sorteioMega[i] == numeroSorteado) {
                 repetido = 1;
-                break;
             }
         }
         
