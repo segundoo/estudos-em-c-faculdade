@@ -5,24 +5,24 @@
 struct dadoscliente
 {
    char nome [100];
-   char cpf [11];
+   char cpf [15];
    int anonasc;
 };
 
 struct dadoscliente dados[999];
-int i = 0, opcao;
+int opcao;
+int contIngresso;
 
 void venderIngresso() {
-    i = 0;
+    int i = 0;
     do
     {   
-
         printf("Nome do cliente: ");
         fflush(stdin);
-        gets(dados[i].nome);
+        fgets(dados[i].nome, 100, stdin);
         printf("CPF do cliente: ");
         fflush(stdin);
-        gets(dados[i].cpf);
+        fgets(dados[i].cpf, 10, stdin);
         printf("Ano de nascimento do cliente: ");
         fflush(stdin);
         scanf("%d", &dados[i].anonasc);
@@ -33,17 +33,20 @@ void venderIngresso() {
         scanf("%d", &opcao);
         if (opcao == 2)
         {
-            main();
+            menu();
         } else {
             venderIngresso();
         }
+
         i++;
+        contIngresso++;
         
-    } while (i <= 999 );
+    } while (i <= contIngresso);
     
 }
 
 void listarIngresso() {
+    int i;
     printf("---------------------------------------\n");
     printf("-----LISTAGEM DE INGRESSOS VENDIDOS----\n");
     printf("---------------------------------------\n");
@@ -56,9 +59,9 @@ void listarIngresso() {
         printf("---------------------------------------\n");
         printf("              INGRESSO %d              \n", i + 1);
         printf("---------------------------------------\n");
-        printf("Nome: %s\n", dados[i].nome);
-        printf("CPF: %s\n", dados[i].cpf);
-        printf("Ano de nascimento: %d\n", dados[i].anonasc);
+        printf("Nome: %s\n", dados[i].nome);//[erro] não pecorre o vetor 
+        printf("CPF: %s\n", dados[i].cpf);//[erro] não pecorre o vetor
+        printf("Ano de nascimento: %d\n", dados[i].anonasc);//[erro] não pecorre o vetor
         printf("---------------------------------------\n");
         printf("                                       \n");
         printf("---------------------------------------\n");
@@ -69,20 +72,60 @@ void listarIngresso() {
         scanf("%d", &opcao);
         if (opcao == 2)
         {
-            main();
+            menu();
         } else {
             listarIngresso();
         }
         i++;
         
-    } while (i > 999);
+    } while (i <= contIngresso);
     
 }
 
-int main() {
+void validarIngresso() {
+    int i;
+    char validar[999];
+    char vCpf;
+    do
+    {
+        validar[i] = dados[i].cpf;
+        i++;
+    } while (i <= contIngresso);
+    
+    printf("-----------------------");
+    printf("VALIDAÇÃO DE INGRESSO  ");
+    printf("-----------------------");
+
+    printf("Digite o CPF para validar o ingresso: \n");
+    fgets(vCpf, 11, stdin);
+
+    do {
+        if (vCpf == validar[i])
+        {
+           printf("Ingresso validado!"); 
+        } else 
+        {
+            printf("[ERRO] Ingresso invalido!");
+        }
+    } while (i < 999);
+
+    printf("Deseja fazer a validação de ingresso novamente?\n");
+        printf("[1]SIM [2] Menu principal\n");
+        fflush(stdin);
+        scanf("%d", &opcao);
+        if (opcao == 2)
+        {
+            menu();
+        } else {
+            validarIngresso();
+        }
+
+}
+
+void menu() {
     setlocale( LC_ALL, "");
     
-    int menu; //variavel de seleção de opção no menu
+    int selecao; //variavel de seleção de opção no menu
 
     //menu
     printf("Escolha uma opção\n");
@@ -91,14 +134,13 @@ int main() {
     printf("3. Validar ingressos\n");
     printf("0. Sair\n");
     fflush(stdin);
-    scanf("%d", &menu);
+    scanf("%d", &selecao);
     
-    switch (menu)
+    switch (selecao)
     {
     case 1:
         system("cls");
         venderIngresso();
-        
         break;
     case 2:
         system("cls");
@@ -106,21 +148,19 @@ int main() {
         break;
     case 3:
         system("cls");
-        printf("ok");
-        break;
-    case 4:
-        system("cls");
-        printf("ok");
+        validarIngresso();
         break;
     case 0:
         printf("Saindo...");
         exit(0);
         break;
-
     default:
         printf("[ERRO] Opção invalida!");
         break;
     }
-    
+}
+
+int main() {
+    menu();
     return 0;
 }
